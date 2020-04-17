@@ -1,4 +1,4 @@
 {
-    "connectionstring": "DefaultEndpointsProtocol=https;AccountName=coursedata;AccountKey=ywkwndUefbMPUCAtoLrxldxUrkaMDG3AxbJ0BKGhzzsUw5S0SVo5pRi0QjO6hoI0tpx5VCLOsmpTvhDzTEF50w==;TableEndpoint=https://coursedata.table.cosmos.azure.com:443/;",
+    "connectionstring": "",
     "table" : "courses"
 }
