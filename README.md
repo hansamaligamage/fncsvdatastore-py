@@ -12,4 +12,64 @@ This is a http trigger function written in Python in Visual Studio Code. It proc
  * Open the solution from Visual Studio code, create a virtual environment to isolate the environment to the project by running, *py -m venv .venv* command. It will install all the required packages mentioned in the *requirements.txt* file
 
 ## Code snippets
+### Package references in the code file
+```
+import logging
+import json
+import csv
+import azure.functions as func
+from azure.cosmosdb.table.tableservice import TableService
+from azure.cosmosdb.table.models import Entity
+```
+
 ### Create Azure Table service
+```
+    with open('config.json', 'r') as config_file:
+        config_data = json.load(config_file)
+
+    connectionstring = config_data["connectionstring"]
+    table_service = TableService(connection_string=connectionstring)
+```
+
+### Create Table
+```
+    table = config_data["table"]
+    tableExists = table_service.create_table(table)
+```
+
+### Read the csv file
+```
+def readcsv () :
+    list = []
+    with open('courses.csv') as file:
+        reader = csv.DictReader(file)
+        for line in reader :
+            list.append(course(line["Subject"], line["Instructor"], line["Lectures"], line["Labs"]
+              , line["Points"], line["Weekend"]))
+        return list
+
+class course :
+    def __init__(self, subject, instructor, lectures, labs, points, isWeekend) :
+        self.subject = subject
+        self.instructor = instructor
+        self.lectures = lectures
+        self.labs = labs
+        self.points = points
+        self.isWeekend = isWeekend
+```
+
+### Insert a row
+```
+    courses = readcsv();
+    
+    for item in courses:
+        # print(item)
+        task = Entity()
+        task.PartitionKey = item.subject
+        task.RowKey = item.instructor
+        task.lectures = item.lectures
+        task.labs = item.labs
+        task.points  = item.points
+        task.isWeekend = item.isWeekend
+        table_service.insert_entity(table, task)
+   ```
