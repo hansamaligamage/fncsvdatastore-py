@@ -1,4 +1,4 @@
-# Azure function (Python) to store csv data in Cosmos DB - Table API
+# An HTTP trigger written in Python to process a CSV file and store data into CosmosDB using Table API 
 
 This is a http trigger function written in Python in Visual Studio Code. It processes a csv file and store the data on Cosmos DB Table API
 
